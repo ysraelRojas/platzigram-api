@@ -4,12 +4,13 @@
   "description": "platzigram REST API",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava test/**-test.js"
   },
   "ava": {
     "require": [
       "babel-register"
-    ]
+    ],
+    "NODE_ENV": "test"
   },
   "babel": {
     "presets": [
