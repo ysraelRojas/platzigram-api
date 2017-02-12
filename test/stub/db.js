@@ -24,4 +24,7 @@ export default class Db{
         image.likes = 1
         return Promise.resolve(image)
     }
+    getImagesByTag(tag){
+        return Promise.resolve(fixtures.getImagesByTag())
+    }
 }
