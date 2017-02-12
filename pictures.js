@@ -15,6 +15,13 @@ let db = new DbStub()
 
 const hash = HttpHash()
 
+hash.set('GET /list', async function getPictures(req, res, params){
+    await db.connect()
+    let images = await db.getImages()
+    await db.disconnect()
+    send(res, 200, images)
+})
+
 hash.set('GET /:id', async function getPicture(req, res, params){
     let id = params.id
     await db.connect()
