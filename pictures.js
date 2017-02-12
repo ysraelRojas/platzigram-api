@@ -23,6 +23,14 @@ hash.set('GET /:id', async function getPicture(req, res, params){
     send(res, 200, image)
 })
 
+hash.set('POST /', async function postPicture(req, res, params){
+    let image = await json(req)
+    await db.connect()
+    let created = await db.saveImage(image)
+    await db.disconnect()
+    send(res, 201, created)
+})
+
 //GESTOR DE RUTAS main
 export default async function main(req, res){
     let {method, url} = req
