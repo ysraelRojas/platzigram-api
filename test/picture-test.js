@@ -42,4 +42,19 @@ test('POST /', async t => {
 
 })
 
-test.todo('POST /:id/like')
+test('POST /:id/like', async t => {
+    let image = fixtures.getImage()
+    let url = t.context.url
+
+    let options = {
+        method: 'POST',
+        uri: `${url}/${image.id}/like`,
+        json: true
+    }
+    let body = await request(options)
+    let newImage = JSON.parse(JSON.stringify(image))
+    newImage.liked = true
+    newImage.likes = 1
+    t.deepEqual(body, newImage)
+
+})
