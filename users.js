@@ -15,7 +15,19 @@ let db = new DbStub()
 
 const hash = HttpHash()
 
-hash.set('POST /', async function getUser(req, res, params){
+hash.set('GET /:username', async function traerUser(req, res, params){
+    let username = params.username
+    await db.connect()
+    let user = await db.getUser(username)    
+    await db.disconnect()
+
+    delete user.email
+    delete user.password
+    
+    send(res, 200, user)
+})
+
+hash.set('POST /', async function insertUser(req, res, params){
     let user = await json(req)
     await db.connect()
     let created = await db.saveUser(user)
@@ -26,6 +38,8 @@ hash.set('POST /', async function getUser(req, res, params){
 
     send(res, 201, created)
 })
+
+
 
 //GESTOR DE RUTAS main
 export default async function main(req, res){
